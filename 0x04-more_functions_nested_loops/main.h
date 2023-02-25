@@ -6,4 +6,5 @@ void print_numbers(void);
 int mul(int a, int b);
 int _isdigit(int c);
 int _putchar(char c);
+void print_number(int n);
 void print_square(int size);
