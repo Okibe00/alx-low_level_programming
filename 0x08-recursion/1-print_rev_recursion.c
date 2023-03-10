@@ -8,38 +8,10 @@
 
 void _print_rev_recursion(char *s)
 {
-	int len  = _strlen_recursion(s) - 1;
-
-	++s;
-	if (*s != s[len - 1])
+	if (*s)
 	{
-		_print_rev_recursion(s);
+		_print_rev_recursion(s + 1);
+		_putchar(*s);
 	}
-	_putchar(*s);
-
 }
 
-
-
-
-/**
-*_strlen_recursion - prints len of str
-* @s: string
-* description: prints len of str
-* Return: len
-*/
-
-
-int _strlen_recursion(char *s)
-{
-	int n = 0;
-
-	n++;
-
-	if (*s != '\0')
-	{
-		s++;
-		return (n + _strlen_recursion(s));
-	}
-	return (n);
-}
