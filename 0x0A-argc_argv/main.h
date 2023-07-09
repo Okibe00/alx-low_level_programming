@@ -5,4 +5,5 @@
 #include <stdlib.h>
 void _putchar(char c);
 int find_c(char **);
+int check_d(char *s);
 #endif

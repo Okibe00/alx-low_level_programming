@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	{
 		for (i = 1; i < argc; i++)
 		{
-			if (atoi(argv[i]) == 0)
+			if (check_d(argv[i]) == 0)
 			{
 				printf("Error\n");
 				return (1);
@@ -37,5 +37,27 @@ int main(int argc, char *argv[])
 	}
 	return (0);
 }
+/**
+  * check_d - checks for non digits in string
+  * @s: string
+  * description: checks string for non digit
+  * Return: 1 or 0
+*/
+int check_d(char *s)
+{
+	char *ptr;
+	int i;
 
-
+	ptr = s;
+	i = 0;
+	while (*ptr)
+	{
+		if (atoi(ptr) == 0 && *ptr  != '0')
+		{
+			return (0);
+		}
+		i++;
+		ptr++;
+	}
+	return (1);
+}
