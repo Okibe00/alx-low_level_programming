@@ -13,9 +13,8 @@ dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *new_dog;
 	int len_name, len_owner;
-	char *_own, *_name;
 
-	if (name == NULL || (owner == NULL || age < 0))
+	if (name == NULL || owner == NULL || age < 0)
 		return (NULL);
 	new_dog = malloc(sizeof(dog_t));
 	if (new_dog == NULL)
@@ -24,15 +23,21 @@ dog_t *new_dog(char *name, float age, char *owner)
 	}
 	len_name = _strlen_recursion(name);
 	len_owner = _strlen_recursion(owner);
-	_own = malloc((sizeof(char) * len_owner) + 1);
-	if (_own == NULL)
+	new_dog->owner = malloc((sizeof(char) * len_owner) + 1);
+	if (new_dog->owner == NULL)
+	{
+		free(new_dog);
 		return (NULL);
-	_name = malloc((sizeof(char) * len_name) + 1);
-	if (_name == NULL)
+	}
+	_memcpy(new_dog->owner, owner, len_owner);
+	new_dog->name = malloc((sizeof(char) * len_name) + 1);
+	if (new_dog->name == NULL)
+	{
+		free(new_dog->owner);
+		free(new_dog);
 		return (NULL);
-
-	new_dog->name = _memcpy(_name, name, len_name);
-	new_dog->owner = _memcpy(_own, owner, len_owner);
+	}
+	_memcpy(new_dog->name, name, len_name);
 	new_dog->age = age;
 	return (new_dog);
 }
