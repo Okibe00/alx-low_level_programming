@@ -16,7 +16,7 @@ void print_all(const char * const format, ...)
 
 	i = 0;
 	va_start(args, format);
-	while (format[i] != '\0')
+	while (format != NULL && format[i] != '\0')
 	{
 		if (format[i] == 'c' ||
 				format[i] == 'i'
