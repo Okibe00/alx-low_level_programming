@@ -21,14 +21,31 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		return (0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
+	{
+		free(buff);
 		return (0);
+	}
 	bytes_read = read(fd, buff, letters);
 	if (bytes_read == -1)
+	{
+		close(fd);
+		free(buff);
 		return (0);
+	}
 	bytes_wrtn = write(STDOUT_FILENO, buff, bytes_read);
-	if (bytes_read != bytes_wrtn)
+	if (bytes_wrtn == -1)
+	{
+		close(fd);
+		free(buff);
 		return (0);
-	else
+	}
+	if (bytes_read != bytes_wrtn)
+	{
+		close(fd);
+		free(buff);
+		return (0);
+	}
+		close(fd);
+		free(buff);
 		return (bytes_read);
-	close(fd);
 }
