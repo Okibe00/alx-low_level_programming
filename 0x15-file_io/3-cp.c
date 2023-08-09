@@ -31,36 +31,37 @@ void file_cpy(char *src, char *dest)
 	int fd_src, fd_dest, bytes_r, bytes_w;
 	char *buff;
 
-	fd_src = open(src, O_RDONLY);
-	if (fd_src == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
-		exit(98);
-	}
-	bytes_r = _read(fd_src, &buff);
-	if (bytes_r == -1)
-	{
-		_close(fd_src);
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
-		exit(98);
-	}
 	fd_dest = open(dest, O_WRONLY | O_TRUNC);
 	if (fd_dest == -1)
 		fd_dest = open(dest, O_WRONLY | O_CREAT,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+				00400 | 00200 | 00040 | 00020 | 00004);
+	fd_src = open(src, O_RDONLY);
+	if (fd_src == -1)
+	{
+		_close(fd_dest);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
+		exit(98);
+	}
 	if (fd_dest == -1)
 	{
 		_close(fd_src);
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", dest);
 		exit(99);
 	}
-
+	bytes_r = _read(fd_src, &buff);
+	if (bytes_r == -1)
+	{
+		_close(fd_src);
+		_close(fd_dest);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
+		exit(98);
+	}
 	bytes_w = write(fd_dest, buff, bytes_r);
 	if (bytes_w == -1)
 	{
 		_close(fd_src);
 		_close(fd_dest);
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", src);
+		dprintf(STDERR_FILENO, "Error: Can't write from file %s\n", src);
 		exit(99);
 	}
 	_close(fd_src);
@@ -96,7 +97,6 @@ int _read(int fd, char **buff)
 	}
 	if (count == 0)
 	{
-		free(buff_cpy);
 		return (-1);
 	}
 	else
