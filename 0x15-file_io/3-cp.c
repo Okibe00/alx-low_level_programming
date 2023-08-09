@@ -57,7 +57,7 @@ void file_cpy(char *src, char *dest)
 		exit(98);
 	}
 	bytes_w = write(fd_dest, buff, bytes_r);
-	if (bytes_w == -1)
+	if (bytes_w != bytes_r)
 	{
 		_close(fd_src);
 		_close(fd_dest);
