@@ -66,7 +66,8 @@ void file_cpy(char *src, char *dest)
 	}
 	_close(fd_src);
 	_close(fd_dest);
-	free(buff);
+	if (bytes_r != 0)
+		free(buff);
 }
 /**
   * _read - read a file
@@ -87,6 +88,11 @@ int _read(int fd, char **buff)
 		return (-1);
 
 	bytes_r = read(fd, buff_cpy, 1024);
+	if (bytes_r == 0)
+	{
+		free(buff_cpy);
+		return (count);
+	}
 	while (bytes_r > 0)
 	{
 		count += bytes_r;
