@@ -56,9 +56,9 @@ void file_cpy(char *src, char *dest)
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
 		exit(98);
 	}
-	/*bytes_w = write(fd_dest, buff, bytes_r);*/
-	if (/*bytes_w*/ write(fd_dest, buff, bytes_r) != bytes_r)
+	if (write(fd_dest, buff, bytes_r) != bytes_r)
 	{
+		free(buff);
 		_close(fd_src);
 		_close(fd_dest);
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", src);
