@@ -61,7 +61,7 @@ void file_cpy(char *src, char *dest)
 	{
 		_close(fd_src);
 		_close(fd_dest);
-		dprintf(STDERR_FILENO, "Error: Can't write to  %s\n", src);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", src);
 		exit(99);
 	}
 	_close(fd_src);
@@ -95,6 +95,7 @@ int _read(int fd, char **buff)
 		buff_cpy = _realloc(buff_cpy, old_size, buff_size);
 		bytes_r = read(fd, (buff_cpy + count), 1024);
 	}
+
 	if (count == 0)
 	{
 		return (-1);
