@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
 void file_cpy(char *src, char *dest)
 {
-	int fd_src, fd_dest, bytes_r, bytes_w;
+	int fd_src, fd_dest, bytes_r/*, bytes_w*/;
 	char *buff;
 
 	fd_dest = open(dest, O_WRONLY | O_TRUNC);
@@ -56,8 +56,8 @@ void file_cpy(char *src, char *dest)
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
 		exit(98);
 	}
-	bytes_w = write(fd_dest, buff, bytes_r);
-	if (bytes_w != bytes_r)
+	/*bytes_w = write(fd_dest, buff, bytes_r);*/
+	if (/*bytes_w*/ write(fd_dest, buff, bytes_r) != bytes_r)
 	{
 		_close(fd_src);
 		_close(fd_dest);
