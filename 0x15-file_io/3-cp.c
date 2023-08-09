@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", argv[0]);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 	file_cpy(argv[1], argv[2]);
@@ -61,7 +61,7 @@ void file_cpy(char *src, char *dest)
 	{
 		_close(fd_src);
 		_close(fd_dest);
-		dprintf(STDERR_FILENO, "Error: Can't write from file %s\n", src);
+		dprintf(STDERR_FILENO, "Error: Can't write to  %s\n", src);
 		exit(99);
 	}
 	_close(fd_src);
@@ -104,7 +104,6 @@ int _read(int fd, char **buff)
 		*buff = buff_cpy;
 		(*buff)[count] = '\0';
 		return (count);
-
 	}
 }
 
