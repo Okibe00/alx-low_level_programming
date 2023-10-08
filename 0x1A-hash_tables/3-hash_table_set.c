@@ -112,12 +112,13 @@ void update_key(hash_node_t *head, const char *key, const char *value)
 {
 	if (head == NULL)
 		return;
-	while (head->next != NULL)
+	while (head != NULL)
 	{
 		if (strcmp(head->key, key) == 0)
 		{
 			head->value = (char *)value;
 			return;
 		}
+		head = head->next;
 	}
 }
