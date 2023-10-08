@@ -50,7 +50,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 */
 hash_node_t *get_node(const char *key, const char *value)
 {
-	char *val_cpy;
+	char *val_cpy, *key_cpy;
 	hash_node_t *new_node;
 
 	if (key == NULL)
@@ -62,12 +62,20 @@ hash_node_t *get_node(const char *key, const char *value)
 	if (new_node == NULL)
 		return (NULL);
 	val_cpy = strdup(value);
+	key_cpy = strdup(key);
 	if (val_cpy == NULL)
 	{
 		free(new_node);
+		free(key_cpy);
 		return (NULL);
 	}
-	new_node->key = (char *)key;
+	if (key_cpy == NULL)
+	{
+		free(new_node);
+		free(val_cpy);
+		return (NULL);
+	}
+	new_node->key = key_cpy;
 	new_node->value = val_cpy;
 	new_node->next = NULL;
 	return (new_node);
