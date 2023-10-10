@@ -16,13 +16,14 @@ void hash_table_print(const hash_table_t *ht)
 	if (ht == NULL)
 		return;
 	i = 0;
-	dic = malloc(sizeof(char) * 2048);
+	dic = calloc(2048, sizeof(char));
+	if (dic == NULL)
+		return;
 	while (i < ht->size)
 	{
 		if (i == 0)
-		{
 			strcat(dic, "{");
-		}
+
 		if (ht->array[i])
 		{
 			curr_val = ht->array[i];

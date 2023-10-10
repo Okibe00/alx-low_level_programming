@@ -32,6 +32,9 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		if (key_exst(ht->array[indx], key) == 1)
 		{
 			update_key(ht->array[indx], key, value);
+			free(new_node->value);
+			free(new_node->key);
+			free(new_node);
 		}
 		else
 		{
@@ -110,13 +113,19 @@ int key_exst(hash_node_t *head, const char *key)
 */
 void update_key(hash_node_t *head, const char *key, const char *value)
 {
+	char *val_cpy;
+
 	if (head == NULL)
+		return;
+	val_cpy = strdup(value);
+	if (val_cpy == NULL)
 		return;
 	while (head != NULL)
 	{
 		if (strcmp(head->key, key) == 0)
 		{
-			head->value = (char *)value;
+			free(head->value);
+			head->value = val_cpy;
 			return;
 		}
 		head = head->next;

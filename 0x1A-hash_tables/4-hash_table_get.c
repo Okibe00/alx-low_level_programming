@@ -19,6 +19,7 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 	if (key == NULL)
 		return (NULL);
 	i = 0;
+	ptr = NULL;
 	while (i < ht->size)
 	{
 		ptr = ht->array[i];
